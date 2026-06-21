@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
       <link rel="stylesheet" href="{{ asset('css/style.css') }}">
       <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
-      <link rel="icon" href="{{ asset('images/fevicon.png') }}" type="image/gif" />
+      <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/gif" />
       <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }}">
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
@@ -140,7 +140,7 @@
                      <div class="room serv_hover">
                         <div class="room_img">
                            <figure>
-                              <img src="{{ $room->image_path ? asset('storage/'.$room->image_path) : asset('images/room1.jpg') }}" alt="{{ $room->display_title }}" />
+                              <img src="{{ $room->image_path ? asset('storage/'.$room->image_path) : asset('images/room1.jpg') }}" alt="{{ $room->display_title }}" style="max-width: 100%; display:block;" />
                            </figure>
                         </div>
                         <div class="bed_room">
@@ -259,7 +259,7 @@
                <div class="row">
                   <div class=" col-md-4">
                      <h3>Contact US</h3>
-                     <ul class="conta">
+                     <ul class="contact">
                         <li><i class="fa fa-map-marker" aria-hidden="true"></i> Address</li>
                         <li><i class="fa fa-mobile" aria-hidden="true"></i> +01 1234569540</li>
                         <li> <i class="fa fa-envelope" aria-hidden="true"></i><a href="#"> demo@gmail.com</a></li>
@@ -276,8 +276,8 @@
                         <li><a href="{{ route('contact') }}">Contact Us</a></li>
                      </ul>
                   </div>
-                  <div class="col-md-4">
-                     <h3>News letter</h3>
+<div class="col-md-4">
+                     <h3>Newsletter</h3>
                      <form class="bottom_form" method="POST" action="{{ route('newsletter.subscribe') }}">
                         @csrf
                         <input class="enter" placeholder="Enter your email" type="email" name="email" required>
@@ -312,17 +312,18 @@
       <script src="{{ asset('js/jquery-3.0.0.min.js') }}"></script>
       <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
       <script src="{{ asset('js/custom.js') }}"></script>
+
       <script>
          function selectRoom(roomId, roomTitle, roomPrice) {
             document.getElementById('room_id').value = roomId;
             document.getElementById('room_display').value = roomTitle;
-            document.getElementById('room_price').value = '$' + parseFloat(roomPrice).toFixed(2);
+            document.getElementById('room_price').value = '$' + Number(roomPrice).toFixed(2);
             document.getElementById('booking_form').scrollIntoView({ behavior: 'smooth' });
          }
 
          // Pre-select room if one was passed
          @if($selectedRoom)
-            selectRoom({{ $selectedRoom->id }}, @json($selectedRoom->display_title), {{ $selectedRoom->price_per_night }});
+         selectRoom({{ $selectedRoom->id }}, '{{ $selectedRoom->display_title }}', {{ $selectedRoom->price_per_night }});
          @endif
       </script>
    </body>

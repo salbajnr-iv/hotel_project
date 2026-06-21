@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
 {
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+
     protected $fillable = [
+
         'room_id',
         'arrival',
         'departure',
@@ -16,6 +19,7 @@ class Booking extends Model
         'notes',
         'status',
     ];
+
 
     protected $casts = [
         'room_id' => 'integer',

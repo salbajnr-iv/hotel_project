@@ -13,15 +13,15 @@
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- bootstrap css -->
-      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
       <!-- style css -->
-      <link rel="stylesheet" href="css/style.css">
+      <link rel="stylesheet" href="{{ asset('css/style.css') }}">
       <!-- Responsive-->
-      <link rel="stylesheet" href="css/responsive.css">
+      <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
       <!-- fevicon -->
-      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <link rel="icon" href="{{ asset('images/fevicon.png') }}" type="image/gif" />
       <!-- Scrollbar Custom CSS -->
-      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <link rel="stylesheet" href="{{ asset('css/jquery.mCustomScrollbar.min.css') }}">
       <!-- Tweaks for older IEs-->
       <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
@@ -33,7 +33,7 @@
    <body class="main-layout">
       <!-- loader  -->
       <div class="loader_bg">
-         <div class="loader"><img src="images/loading.gif" alt="#"/></div>
+         <div class="loader"><img src="{{ asset('images/loading.gif') }}" alt="#"/></div>
       </div>
       <!-- end loader -->
 
@@ -47,7 +47,7 @@
                      <div class="full">
                         <div class="center-desk">
                            <div class="logo">
-                              <a href="{{ url('/') }}"><img src="images/logo.png" alt="#" /></a>
+                              <a href="{{ url('/') }}"><img src="{{ asset('images/logo.png') }}" alt="#" /></a>
                            </div>
                         </div>
                      </div>
@@ -112,14 +112,14 @@
 
             <div class="carousel-inner">
                <div class="carousel-item active">
-                  <img class="first-slide" src="images/banner1.jpg" alt="First slide">
+                  <img class="d-block w-100 first-slide" src="{{ asset('images/room1.jpg') }}" alt="First slide">
                   <div class="container"></div>
                </div>
                <div class="carousel-item">
-                  <img class="second-slide" src="images/banner2.jpg" alt="Second slide">
+                  <img class="d-block w-100 second-slide" src="{{ asset('images/room2.jpg') }}" alt="Second slide">
                </div>
                <div class="carousel-item">
-                  <img class="third-slide" src="images/banner3.jpg" alt="Third slide">
+                  <img class="d-block w-100 third-slide" src="{{ asset('images/room3.jpg') }}" alt="Third slide">
                </div>
             </div>
 
@@ -163,7 +163,7 @@
                </div>
                <div class="col-md-7">
                   <div class="about_img">
-                     <figure><img src="images/about.png" alt="#"/></figure>
+                     <figure><img src="{{ asset('images/about.png') }}" alt="#"/></figure>
                   </div>
                </div>
             </div>
@@ -222,39 +222,21 @@
             </div>
 
             <div class="row">
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery1.jpg" alt="#"/></figure>
+               @forelse($gallery ?? [] as $item)
+                  <div class="col-md-3 col-sm-6">
+                     <div class="gallery_img">
+                        <figure>
+                           <img
+                              src="{{ $item->image_url }}"
+                              alt="{{ $item->title ?? $item->name ?? 'Gallery item' }}"/>
+                        </figure>
+                     </div>
                   </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery2.jpg" alt="#"/></figure>
+               @empty
+                  <div class="col-md-12">
+                     <p>No gallery items available.</p>
                   </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery3.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery4.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery5.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-                     <figure><img src="images/gallery6.jpg" alt="#"/></figure>
-                  </div>
-               </div>
-               <div class="col-md-3 col-sm-6">
-                  <div class="gallery_img">
-               </div>
+               @endforelse
             </div>
          </div>
       </div>
@@ -270,43 +252,32 @@
                   </div>
                </div>
             </div>
+
             <div class="row">
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <div class="blog_img">
-                        <figure><img src="images/blog1.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="blog_room">
-                        <h3>Bed Room</h3>
-                        <span>The standard chunk </span>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <div class="blog_img">
-                        <figure><img src="images/blog2.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="blog_room">
-                        <h3>Bed Room</h3>
-                        <span>The standard chunk </span>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
+               @forelse($posts ?? [] as $post)
+                  <div class="col-md-4">
+                     <div class="blog_box">
+                        <div class="blog_img">
+                           <figure>
+                              <img src="{{ $post->image_url }}" alt="{{ $post->title ?? $post->name ?? 'Blog post' }}"/>
+                           </figure>
+                        </div>
+
+                        <div class="blog_room">
+                           <h3>{{ $post->title ?? 'Untitled' }}</h3>
+                           @if(!empty($post->published_at))
+                              <span>{{ \Carbon\Carbon::parse($post->published_at)->format('M d, Y') }}</span>
+                           @endif
+
+                           <p>{{ \Illuminate\Support\Str::limit(strip_tags($post->content ?? $post->excerpt ?? ''), 160) }}</p>
+                        </div>
                      </div>
                   </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="blog_box">
-                     <div class="blog_img">
-                        <figure><img src="images/blog3.jpg" alt="#"/></figure>
-                     </div>
-                     <div class="blog_room">
-                        <h3>Bed Room</h3>
-                        <span>The standard chunk </span>
-                        <p>If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generatorsIf you are   </p>
-                     </div>
+               @empty
+                  <div class="col-md-12">
+                     <p>No blog posts available.</p>
                   </div>
-               </div>
+               @endforelse
             </div>
          </div>
       </div>
@@ -410,12 +381,11 @@
       </footer>
       <!-- end footer -->
       <!-- Javascript files-->
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.bundle.min.js"></script>
-      <script src="js/jquery-3.0.0.min.js"></script>
+      <script src="{{ asset('js/jquery.min.js') }}"></script>
+      <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
       <!-- sidebar -->
-      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
-      <script src="js/custom.js"></script>
+      <script src="{{ asset('js/jquery.mCustomScrollbar.concat.min.js') }}"></script>
+      <script src="{{ asset('js/custom.js') }}"></script>
    </body>
 </html>
 

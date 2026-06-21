@@ -1,0 +1,4 @@
+<?php
+
+// (intentionally empty placeholder)
+

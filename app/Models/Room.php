@@ -7,6 +7,8 @@ use Illuminate\Support\Str;
 
 class Room extends Model
 {
+    use \Illuminate\Database\Eloquent\Factories\HasFactory;
+
     protected $fillable = [
         'name',
         'title',
@@ -17,6 +19,7 @@ class Room extends Model
         'price_per_night',
         'status',
     ];
+
 
     protected $casts = [
         'price_per_night' => 'decimal:2',
